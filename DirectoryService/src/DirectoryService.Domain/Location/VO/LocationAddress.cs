@@ -4,6 +4,8 @@ namespace DirectoryService.Domain.VO;
 
 public record LocationAddress
 {
+    public const int MAX_LENGTH = 150;
+
     public string City { get; }
     public string Street { get; }
     public string HouseNumber { get; }
@@ -22,7 +24,6 @@ public record LocationAddress
 
         return new LocationAddress(city, street, houseNumber);
     }
-    
 }
 
 

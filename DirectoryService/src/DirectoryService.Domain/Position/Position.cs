@@ -2,21 +2,25 @@
 
 namespace DirectoryService.Domain;
 
-public class Position
+public sealed class Position
 {
+    // EF Core
+    public Position() { }
+
     private Position(
-        Guid id,
+        PositionId? id,
         PositionName name,
         string? description)
     {
-        Id = id;
+        Id = id ?? PositionId.NewPositionId();
         Name = name;
         Description = description;
         CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
         IsActive = true;
     }
 
-    public Guid Id { get; private set; }
+    public PositionId Id { get; private set; }
 
     public PositionName Name { get; private set; }
 
@@ -28,7 +32,7 @@ public class Position
 
     public DateTime UpdatedAt { get; private set; }
 
-    public static Result<Position> Create(Guid id, PositionName name, string? description)
+    public static Result<Position> Create(PositionId? id, PositionName name, string? description)
     {
         if (description != null && description.Length > 1000)
             return Result.Failure<Position>($"Position {name} is too long");

@@ -1,10 +1,11 @@
 using CSharpFunctionalExtensions;
+using DirectoryService.Domain.Department.VO;
 
 namespace DirectoryService.Domain;
 
 public class DepartmentPosition
 {
-    private DepartmentPosition(Guid departmentId, Guid positionId)
+    private DepartmentPosition(DepartmentId departmentId, PositionId positionId)
     {
         Id = Guid.NewGuid();
         DepartmentId = departmentId;
@@ -13,13 +14,13 @@ public class DepartmentPosition
 
     public Guid Id { get; private set; }
 
-    public Guid DepartmentId { get; private set; }
+    public DepartmentId DepartmentId { get; private set; }
 
-    public Guid PositionId { get; private set; }
+    public PositionId PositionId { get; private set; }
 
-    public static Result<DepartmentPosition> Create(Guid departmentId, Guid positionId)
+    public static Result<DepartmentPosition> Create(DepartmentId departmentId, PositionId positionId)
     {
-        if (departmentId == Guid.Empty || positionId == Guid.Empty)
+        if (departmentId.Value == Guid.Empty || positionId.Value == Guid.Empty)
             return Result.Failure<DepartmentPosition>("Department Id and Position Id cannot be null");
 
         return new DepartmentPosition(departmentId, positionId);

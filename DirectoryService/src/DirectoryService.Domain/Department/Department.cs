@@ -4,7 +4,7 @@ using Path = DirectoryService.Domain.Department.VO.Path;
 
 namespace DirectoryService.Domain.Department;
 
-public class Department
+public sealed class Department
 {
     private List<DepartmentLocation> _departmentLocations = [];
 
@@ -12,20 +12,23 @@ public class Department
 
     private List<Department> _childDepartments = [];
 
+    // EF Core
+    public Department() {}
+
     private Department(
-        Guid id,
+        DepartmentId? id,
         DepartmentName departmentName,
-        Identifier identifier,
+        DepartmentIdentifier departmentIdentifier,
         Path path,
-        Guid? parentId,
+        DepartmentId? parentId,
         short depth,
         IEnumerable<DepartmentLocation> locations,
         IEnumerable<DepartmentPosition> positions,
         IEnumerable<Department> childDepartments)
     {
-        Id = id;
+        Id = id ?? DepartmentId.NewDepartmentId();
         Name = departmentName;
-        Identifier = identifier;
+        DepartmentIdentifier = departmentIdentifier;
         Path = path;
         ParentId = parentId;
         Depth = depth;
@@ -33,18 +36,19 @@ public class Department
         _departmentPositions = positions.ToList();
         _childDepartments = childDepartments.ToList();
         CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
     }
 
-    public Guid Id { get; private set; }
+    public DepartmentId Id { get; private set; }
 
     public DepartmentName Name { get; private set; }
 
-    public Identifier Identifier { get; private set; }
+    public DepartmentIdentifier DepartmentIdentifier { get; private set; }
 
     public Path Path { get; private set; }
 
 
-    public Guid? ParentId { get; private set; }
+    public DepartmentId? ParentId { get; private set; }
 
     public short Depth { get; private set; }
 
@@ -61,11 +65,11 @@ public class Department
     public DateTime? UpdatedAt { get; private set; }
 
     public static Result<Department> Create(
-        Guid id,
+        DepartmentId id,
         DepartmentName name,
-        Identifier identifier,
+        DepartmentIdentifier departmentIdentifier,
         Path path,
-        Guid? parentId,
+        DepartmentId? parentId,
         short depth,
         IEnumerable<DepartmentLocation> locations,
         IEnumerable<DepartmentPosition> positions,
@@ -74,7 +78,7 @@ public class Department
         return new Department(
             id,
             name,
-            identifier,
+            departmentIdentifier,
             path,
             parentId,
             depth,
