@@ -3,26 +3,31 @@ using DirectoryService.Domain.VO;
 
 namespace DirectoryService.Domain;
 
-public class Location
+public sealed class Location
 {
     private List<DepartmentLocation> _departments = [];
     private List<LocationAddress> _addresses = [];
 
+    // EF Core
+    public Location() { }
+
     private Location(
-        Guid id,
+        LocationId? id,
         LocationName name,
         LocationTimezone timezone,
         IEnumerable<LocationAddress> address,
         IEnumerable<DepartmentLocation> departments)
     {
-        Id = id;
+        Id = id ?? LocationId.NewLocationId();
         Name = name;
         Timezone = timezone;
         _addresses = address.ToList();
         _departments = departments.ToList();
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
     }
 
-    public Guid Id { get; private set; }
+    public LocationId Id { get; private set; }
 
     public LocationName Name { get; private set; }
 
@@ -39,7 +44,7 @@ public class Location
     public DateTime UpdatedAt { get; private set; }
 
     public static Result<Location> Create(
-        Guid id,
+        LocationId? id,
         LocationName name,
         LocationTimezone timezone,
         IEnumerable<LocationAddress> addresses,
