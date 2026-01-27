@@ -15,14 +15,13 @@ public sealed class Location
         LocationId? id,
         LocationName name,
         LocationTimezone timezone,
-        IEnumerable<LocationAddress> address,
-        IEnumerable<DepartmentLocation> departments)
+        IEnumerable<LocationAddress> address)
     {
         Id = id ?? LocationId.NewLocationId();
         Name = name;
         Timezone = timezone;
         _addresses = address.ToList();
-        _departments = departments.ToList();
+        IsActive = true;
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
     }
@@ -47,9 +46,8 @@ public sealed class Location
         LocationId? id,
         LocationName name,
         LocationTimezone timezone,
-        IEnumerable<LocationAddress> addresses,
-        IEnumerable<DepartmentLocation> departments)
+        IEnumerable<LocationAddress> addresses)
     {
-        return new Location(id, name, timezone, addresses, departments);
+        return new Location(id, name, timezone, addresses);
     }
 }
