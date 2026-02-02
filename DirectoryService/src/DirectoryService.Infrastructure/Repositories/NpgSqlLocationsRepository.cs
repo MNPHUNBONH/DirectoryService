@@ -1,27 +1,27 @@
-using System.Text.Json;
 using CSharpFunctionalExtensions;
 using Dapper;
 using DirectoryService.Application.Locations;
 using DirectoryService.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DirectoryService.Infrastructure.Repositories;
 
 public class NpgSqlLocationsRepository : ILocationsRepository
 {
-    private readonly IDbConnectionFactory _connection;
+    private readonly DirectoryServiceDbContext _dbContext;
     private readonly ILogger<NpgSqlLocationsRepository> _logger;
 
-    public NpgSqlLocationsRepository(IDbConnectionFactory connection, ILogger<NpgSqlLocationsRepository> logger)
+    public NpgSqlLocationsRepository(DirectoryServiceDbContext dbContext, ILogger<NpgSqlLocationsRepository> logger)
     {
-        _connection = connection;
+        _dbContext = dbContext;
         _logger = logger;
     }
 
     public async Task<Result<Guid, string>> AddAsync(Location location, CancellationToken cancellationToken = default)
     {
-        using var connection = await _connection.CreateConnectionAsync(cancellationToken);
-        using var transaction = connection.BeginTransaction();
+        var connection = _dbContext.Database.GetDbConnection();
+        using var transaction = await connection.BeginTransactionAsync(cancellationToken);
         try
         {
             const string locationInsertSql = @"

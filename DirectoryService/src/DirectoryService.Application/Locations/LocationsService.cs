@@ -29,15 +29,15 @@ public class LocationsService
             createLocationRequest.Addresse.HouseNumber);
 
         // создание сущности Location
-        var location = Location.Create(LocationId.Create(locationId), locationName.Value, locationTimezone.Value, locationAddresses.Value);
+        var locationResult = Location.Create(LocationId.Create(locationId), locationName.Value, locationTimezone.Value, locationAddresses.Value);
 
-        if (location.IsFailure)
+        if (locationResult.IsFailure)
         {
-            return location.Error;
+            return locationResult.Error;
         }
 
         // сохранине сущности в БД
-        _locationsRepository.AddAsync(location.Value);
+        _locationsRepository.AddAsync(locationResult.Value);
 
         _logger.LogInformation("Locations created with id {locationId}", locationId);
 
