@@ -1,4 +1,6 @@
+using DirectoryService.Application.Locations;
 using DirectoryService.Infrastructure;
+using DirectoryService.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,11 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<DirectoryServiceDbContext>(
     _ => new DirectoryServiceDbContext(builder.Configuration.GetConnectionString("DirectoryServiceDb")!));
+
+// builder.Services.AddScoped<ILocationsRepository, NpgSqlLocationsRepository>(); 
+builder.Services.AddScoped<ILocationsRepository, EfCoreLocationsRepository>();
+
+builder.Services.AddScoped<CreateLocationHandler>();
 
 var app = builder.Build();
 

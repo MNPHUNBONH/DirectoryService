@@ -6,7 +6,6 @@ namespace DirectoryService.Domain;
 public sealed class Location
 {
     private List<DepartmentLocation> _departments = [];
-    private List<LocationAddress> _addresses = [];
 
     // EF Core
     public Location() { }
@@ -15,14 +14,13 @@ public sealed class Location
         LocationId? id,
         LocationName name,
         LocationTimezone timezone,
-        IEnumerable<LocationAddress> address,
-        IEnumerable<DepartmentLocation> departments)
+        LocationAddress address)
     {
         Id = id ?? LocationId.NewLocationId();
         Name = name;
         Timezone = timezone;
-        _addresses = address.ToList();
-        _departments = departments.ToList();
+        Address = address;
+        IsActive = true;
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
     }
@@ -33,7 +31,7 @@ public sealed class Location
 
     public LocationTimezone Timezone { get; private set; }
 
-    public IReadOnlyList<LocationAddress> Address => _addresses;
+    public LocationAddress Address { get; private set; }
 
     public IReadOnlyList<DepartmentLocation> Departments => _departments;
 
@@ -47,9 +45,8 @@ public sealed class Location
         LocationId? id,
         LocationName name,
         LocationTimezone timezone,
-        IEnumerable<LocationAddress> addresses,
-        IEnumerable<DepartmentLocation> departments)
+        LocationAddress addresses)
     {
-        return new Location(id, name, timezone, addresses, departments);
+        return new Location(id, name, timezone, addresses);
     }
 }
