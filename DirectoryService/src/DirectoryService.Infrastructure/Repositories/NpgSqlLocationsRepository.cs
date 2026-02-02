@@ -20,21 +20,14 @@ public class NpgSqlLocationsRepository : ILocationsRepository
 
     public async Task<Result<Guid, string>> AddAsync(Location location, CancellationToken cancellationToken = default)
     {
-        using var connection = await _connection.CreateConnectionAsync();
+        using var connection = await _connection.CreateConnectionAsync(cancellationToken);
         using var transaction = connection.BeginTransaction();
         try
         {
             const string locationInsertSql = @"
             INSERT INTO locations (id, name, timezone, active, created_at, updated_at, addresses)
-            VALUES (@Id, @Name, @Timezone, @Active, @CreatedAt, @UpdatedAt, @Addresses::jsonb);
+            VALUES (@Id, @Name, @Timezone, @Active, @CreatedAt, @UpdatedAt, @Addresses);
             ";
-
-            var addressesJson = JsonSerializer.Serialize(location.Address.Select(a => new
-            {
-                city = a.City,
-                street = a.Street,
-                houseNumber = a.HouseNumber,
-            }));
 
             var locationInsertParams = new
             {
@@ -44,8 +37,7 @@ public class NpgSqlLocationsRepository : ILocationsRepository
                 Active = location.IsActive,
                 CreatedAt = location.CreatedAt,
                 UpdatedAt = location.UpdatedAt,
-                Addresses = addressesJson,
-
+                Addresses = location.Address,
             };
             await connection.ExecuteAsync(locationInsertSql, locationInsertParams, transaction);
 

@@ -24,21 +24,13 @@ public class CreateLocationHandler
         var locationId = LocationId.NewLocationId().Value;
         var locationName = LocationName.Create(createLocationRequest.LoactionsName);
         var locationTimezone = LocationTimezone.Create(createLocationRequest.LocationTimezone);
-        var locationAddresses = new List<LocationAddress>();
-
-        // var locationAddress = locationDTO.Addresses
-        //     .Select(address => LocationAddress.Create(address.City,address.Street,address.HouseNumber));
-        foreach (var locationAddress in createLocationRequest.Addresses)
-        {
-            var addres = LocationAddress.Create(locationAddress.City, locationAddress.Street,
-                locationAddress.HouseNumber);
-            if (addres.IsFailure)
-                return addres.Error;
-            locationAddresses.Add(addres.Value);
-        }
+        var locationAddresses = LocationAddress.Create(
+            createLocationRequest.Addresse.City,
+            createLocationRequest.Addresse.Street,
+            createLocationRequest.Addresse.HouseNumber);
 
         // создание сущности Location
-        var location = Location.Create(LocationId.Create(locationId), locationName.Value, locationTimezone.Value, locationAddresses);
+        var location = Location.Create(LocationId.Create(locationId), locationName.Value, locationTimezone.Value, locationAddresses.Value);
 
         if (location.IsFailure)
        {

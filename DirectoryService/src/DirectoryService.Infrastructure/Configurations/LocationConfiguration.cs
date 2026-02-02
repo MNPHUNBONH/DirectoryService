@@ -44,23 +44,18 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
             .IsRequired()
             .HasColumnName("updated_at");
 
-        builder.OwnsMany(l => l.Address, lab =>
+        builder.ComplexProperty(l => l.Address, la =>
         {
-            lab.ToJson("addresses");
-
-            lab.Property(a => a.City)
+            la.Property(c => c.City)
                 .IsRequired()
-                .HasMaxLength(LocationAddress.MAX_LENGTH)
                 .HasColumnName("city");
 
-            lab.Property(a => a.Street)
+            la.Property(s => s.Street)
                 .IsRequired()
-                .HasMaxLength(LocationAddress.MAX_LENGTH)
                 .HasColumnName("street");
 
-            lab.Property(a => a.HouseNumber)
+            la.Property(hn => hn.HouseNumber)
                 .IsRequired()
-                .HasMaxLength(LocationAddress.MAX_LENGTH)
                 .HasColumnName("house_number");
 
         });
