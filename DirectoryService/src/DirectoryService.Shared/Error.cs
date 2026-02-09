@@ -1,4 +1,4 @@
-﻿namespace Shared;
+﻿namespace DirectoryService.Shared;
 
 public record ErrorMessage(string Code, string Message, string? InvalidField = null);
 public record Error

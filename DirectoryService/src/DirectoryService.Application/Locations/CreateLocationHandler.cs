@@ -2,9 +2,8 @@ using System.Runtime.InteropServices.JavaScript;
 using CSharpFunctionalExtensions;
 using DirectoryService.Contracts.Locations;
 using DirectoryService.Domain;
-using DirectoryService.Domain.VO;
+using DirectoryService.Shared;
 using Microsoft.Extensions.Logging;
-using Shared;
 
 namespace DirectoryService.Application.Locations;
 

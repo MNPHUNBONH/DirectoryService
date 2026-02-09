@@ -1,5 +1,5 @@
 ﻿using DirectoryService.Application.Exceptions;
-using Shared;
+using DirectoryService.Shared;
 
 namespace DirectoryService.Application.Locations.Exceptions;
 

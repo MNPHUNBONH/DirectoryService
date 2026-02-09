@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using CSharpFunctionalExtensions;
 using DirectoryService.Presentation.Exeptions;
+using DirectoryService.Shared;
 using Microsoft.AspNetCore.Http.Metadata;
-using Shared;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace DirectoryService.Presentation.EndpointResults;

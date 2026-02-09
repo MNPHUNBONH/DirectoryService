@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using Shared;
+using DirectoryService.Shared;
 
 namespace DirectoryService.Application.Exceptions;
 

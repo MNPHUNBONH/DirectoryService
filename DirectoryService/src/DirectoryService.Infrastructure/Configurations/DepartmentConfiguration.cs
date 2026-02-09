@@ -1,5 +1,4 @@
-using DirectoryService.Domain.Department;
-using DirectoryService.Domain.Department.VO;
+using DirectoryService.Domain.Departments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -26,7 +25,7 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
                 .HasColumnName("name");
         });
 
-        builder.ComplexProperty(d => d.DepartmentIdentifier, ib =>
+        builder.ComplexProperty(d => d.Identifier, ib =>
         {
             ib.Property(d => d.Value)
                 .IsRequired()
@@ -49,6 +48,10 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
             .IsRequired()
             .HasColumnName("depth");
 
+        builder.Property(d => d.ChildrenCount)
+            .IsRequired()
+            .HasColumnName("children_count");
+
         builder.Property(d => d.IsActive)
             .HasColumnName("active");
 
@@ -64,6 +67,6 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
             .HasMany(d => d.ChildDepartments)
             .WithOne()
             .HasForeignKey(cd => cd.ParentId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Shared;
+using DirectoryService.Shared;
 
 namespace DirectoryService.Presentation.Exeptions;
 

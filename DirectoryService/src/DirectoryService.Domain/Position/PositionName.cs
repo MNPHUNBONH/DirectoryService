@@ -1,9 +1,9 @@
 ﻿using CSharpFunctionalExtensions;
-using Shared;
+using DirectoryService.Shared;
 
 namespace DirectoryService.Domain;
 
-public record PositionName
+public sealed record PositionName
 {
     public const int MAX_LENGTH = 100;
     public const int MIN_LENGTH = 3;
