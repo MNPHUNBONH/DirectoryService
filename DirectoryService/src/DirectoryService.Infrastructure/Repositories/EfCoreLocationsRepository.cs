@@ -3,6 +3,7 @@ using DirectoryService.Application.Locations;
 using DirectoryService.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Shared;
 
 namespace DirectoryService.Infrastructure.Repositories;
 
@@ -17,7 +18,7 @@ public class EfCoreLocationsRepository : ILocationsRepository
         _logger = logger;
     }
 
-    public async Task<Result<Guid, string>> AddAsync(Location location, CancellationToken cancellationToken = default)
+    public async Task<Result<Guid, Error>> AddAsync(Location location, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -30,7 +31,8 @@ public class EfCoreLocationsRepository : ILocationsRepository
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            return e.Message;
+
+            return Error.Failure("failed.to.insert.location", e.Message);
         }
     }
 }

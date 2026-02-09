@@ -1,6 +1,7 @@
 using CSharpFunctionalExtensions;
 using DirectoryService.Domain.Department.VO;
 using DirectoryService.Domain.VO;
+using Shared;
 
 namespace DirectoryService.Domain;
 
@@ -19,10 +20,10 @@ public class DepartmentLocation
 
     public LocationId LocationId { get; private set; }
 
-    public static Result<DepartmentLocation> Create(DepartmentId departmentId, LocationId locationId)
+    public static Result<DepartmentLocation, Error> Create(DepartmentId departmentId, LocationId locationId)
     {
         if (departmentId.Value == Guid.Empty || locationId.Value == Guid.Empty)
-            return Result.Failure<DepartmentLocation>("Department Id and Location Id cannot be null");
+            return GeneralErrors.ValueIsRequired("department.location");
 
         return new DepartmentLocation(departmentId, locationId);
     }

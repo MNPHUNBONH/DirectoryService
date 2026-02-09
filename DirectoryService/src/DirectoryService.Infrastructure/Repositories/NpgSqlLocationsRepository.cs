@@ -4,6 +4,7 @@ using DirectoryService.Application.Locations;
 using DirectoryService.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Shared;
 
 namespace DirectoryService.Infrastructure.Repositories;
 
@@ -18,7 +19,7 @@ public class NpgSqlLocationsRepository : ILocationsRepository
         _logger = logger;
     }
 
-    public async Task<Result<Guid, string>> AddAsync(Location location, CancellationToken cancellationToken = default)
+    public async Task<Result<Guid, Error>> AddAsync(Location location, CancellationToken cancellationToken = default)
     {
         var connection = _dbContext.Database.GetDbConnection();
         using var transaction = await connection.BeginTransactionAsync(cancellationToken);
@@ -68,7 +69,7 @@ public class NpgSqlLocationsRepository : ILocationsRepository
 
              _logger.LogError(ex, "Failed to insert location");
  
-             return Result.Failure<Guid, string>(ex.Message);
+             return Error.Failure("failed.to.insert.location", ex.Message);
         }
     }
 }
