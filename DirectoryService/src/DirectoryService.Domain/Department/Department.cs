@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using DirectoryService.Domain.Department.VO;
+using Shared;
 using Path = DirectoryService.Domain.Department.VO.Path;
 
 namespace DirectoryService.Domain.Department;
@@ -64,7 +65,7 @@ public sealed class Department
 
     public DateTime? UpdatedAt { get; private set; }
 
-    public static Result<Department> Create(
+    public static Result<Department, Error> Create(
         DepartmentId id,
         DepartmentName name,
         DepartmentIdentifier departmentIdentifier,

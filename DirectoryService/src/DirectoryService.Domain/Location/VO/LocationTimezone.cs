@@ -1,4 +1,5 @@
 using CSharpFunctionalExtensions;
+using Shared;
 
 namespace DirectoryService.Domain.VO;
 
@@ -11,10 +12,10 @@ public record LocationTimezone
 
     public string Value { get; }
 
-    public static Result<LocationTimezone> Create(string value)
+    public static Result<LocationTimezone, Error> Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            return Result.Failure<LocationTimezone>("Timezone ID cannot be empty.");
+            return GeneralErrors.ValueIsRequired("location.timezone");
 
         try
         {
@@ -22,7 +23,7 @@ public record LocationTimezone
         }
         catch (TimeZoneNotFoundException)
         {
-            return Result.Failure<LocationTimezone>($"'{value}' не является валидным IANA timezone ID.");
+            return GeneralErrors.ValueIsInvalid("location.timezone");
         }
 
         return new LocationTimezone(value);

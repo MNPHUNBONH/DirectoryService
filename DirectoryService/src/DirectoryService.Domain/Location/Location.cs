@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using DirectoryService.Domain.VO;
+using Shared;
 
 namespace DirectoryService.Domain;
 
@@ -41,7 +42,7 @@ public sealed class Location
 
     public DateTime UpdatedAt { get; private set; }
 
-    public static Result<Location> Create(
+    public static Result<Location, Error> Create(
         LocationId? id,
         LocationName name,
         LocationTimezone timezone,

@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using CSharpFunctionalExtensions;
+using Shared;
 
 namespace DirectoryService.Domain.Department.VO;
 
@@ -17,16 +18,16 @@ public record DepartmentIdentifier
 
     public string Value { get; }
 
-    public static Result<DepartmentIdentifier> Create(string value)
+    public static Result<DepartmentIdentifier, Error> Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            return Result.Failure<DepartmentIdentifier>("DepartmentIdentifier cannot be null or empty.");
+            return GeneralErrors.ValueIsRequired("department.identifier");
 
         if (value.Length < MIN_LENGTH || value.Length > MAX_LENGTH)
-            return Result.Failure<DepartmentIdentifier>($"DepartmentIdentifier must be between {MIN_LENGTH} and {MAX_LENGTH} characters.");
+            return GeneralErrors.ValueIsInvalid("department.identifier");
 
         if (!LatinRegex.IsMatch(value))
-            return Result.Failure<DepartmentIdentifier>("DepartmentIdentifier must contain only Latin letters and digits.");
+            return GeneralErrors.ValueIsInvalid("department.identifier");
 
         return new DepartmentIdentifier(value);
     }

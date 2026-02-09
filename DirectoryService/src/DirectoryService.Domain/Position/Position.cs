@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using Shared;
 
 namespace DirectoryService.Domain;
 
@@ -32,10 +33,10 @@ public sealed class Position
 
     public DateTime UpdatedAt { get; private set; }
 
-    public static Result<Position> Create(PositionId? id, PositionName name, string? description)
+    public static Result<Position, Error> Create(PositionId? id, PositionName name, string? description)
     {
-        if (description != null && description.Length > 1000)
-            return Result.Failure<Position>($"Position {name} is too long");
+        if (description != null)
+            return GeneralErrors.ValueIsInvalid("position.description");
 
         return new Position(id, name, description);
     }
