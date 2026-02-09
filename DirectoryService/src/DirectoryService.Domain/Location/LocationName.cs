@@ -1,9 +1,9 @@
 using CSharpFunctionalExtensions;
-using Shared;
+using DirectoryService.Shared;
 
-namespace DirectoryService.Domain.VO;
+namespace DirectoryService.Domain;
 
-public record LocationName
+public sealed record LocationName
 {
     public const int MAX_LENGTH = 120;
     public const int MIN_LENGTH = 3;

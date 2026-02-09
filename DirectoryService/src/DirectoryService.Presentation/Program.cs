@@ -2,8 +2,8 @@ using DirectoryService.Application.Locations;
 using DirectoryService.Infrastructure;
 using DirectoryService.Infrastructure.Repositories;
 using DirectoryService.Presentation.Exeptions;
+using DirectoryService.Shared;
 using Microsoft.OpenApi.Models;
-using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 

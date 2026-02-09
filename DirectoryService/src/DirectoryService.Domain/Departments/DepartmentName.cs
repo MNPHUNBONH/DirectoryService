@@ -1,9 +1,9 @@
 ﻿using CSharpFunctionalExtensions;
-using Shared;
+using DirectoryService.Shared;
 
-namespace DirectoryService.Domain.Department.VO;
+namespace DirectoryService.Domain.Departments;
 
-public record DepartmentName
+public sealed record DepartmentName
 {
     public const int MAX_LENGTH = 150;
     public const int MIN_LENGTH = 3;

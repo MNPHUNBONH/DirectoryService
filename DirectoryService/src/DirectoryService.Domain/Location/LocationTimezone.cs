@@ -1,9 +1,9 @@
 using CSharpFunctionalExtensions;
-using Shared;
+using DirectoryService.Shared;
 
-namespace DirectoryService.Domain.VO;
+namespace DirectoryService.Domain;
 
-public record LocationTimezone
+public sealed record LocationTimezone
 {
     private LocationTimezone(string value)
     {

@@ -1,11 +1,10 @@
 using CSharpFunctionalExtensions;
-using DirectoryService.Domain.Department.VO;
-using DirectoryService.Domain.VO;
-using Shared;
+using DirectoryService.Domain.Departments;
+using DirectoryService.Shared;
 
 namespace DirectoryService.Domain;
 
-public class DepartmentLocation
+public sealed class DepartmentLocation
 {
     private DepartmentLocation(DepartmentId departmentId, LocationId locationId)
     {
@@ -23,7 +22,9 @@ public class DepartmentLocation
     public static Result<DepartmentLocation, Error> Create(DepartmentId departmentId, LocationId locationId)
     {
         if (departmentId.Value == Guid.Empty || locationId.Value == Guid.Empty)
+        {
             return GeneralErrors.ValueIsRequired("department.location");
+        }
 
         return new DepartmentLocation(departmentId, locationId);
     }

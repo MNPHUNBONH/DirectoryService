@@ -1,5 +1,5 @@
 ﻿using DirectoryService.Presentation.Exeptions;
-using Shared;
+using DirectoryService.Shared;
 
 namespace DirectoryService.Presentation.EndpointResults;
 

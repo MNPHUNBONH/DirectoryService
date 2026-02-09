@@ -1,9 +1,9 @@
 using CSharpFunctionalExtensions;
 using DirectoryService.Application.Locations;
 using DirectoryService.Domain;
+using DirectoryService.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Shared;
 
 namespace DirectoryService.Infrastructure.Repositories;
 

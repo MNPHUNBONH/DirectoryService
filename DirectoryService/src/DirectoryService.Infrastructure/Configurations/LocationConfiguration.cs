@@ -1,5 +1,4 @@
 using DirectoryService.Domain;
-using DirectoryService.Domain.VO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -59,6 +58,5 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
                 .HasColumnName("house_number");
 
         });
-
     }
 }

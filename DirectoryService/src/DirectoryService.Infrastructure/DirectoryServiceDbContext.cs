@@ -1,6 +1,6 @@
 ﻿using DirectoryService.Application.Locations;
 using DirectoryService.Domain;
-using DirectoryService.Domain.Department;
+using DirectoryService.Domain.Departments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

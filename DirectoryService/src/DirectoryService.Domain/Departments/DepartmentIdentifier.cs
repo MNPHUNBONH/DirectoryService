@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 using CSharpFunctionalExtensions;
-using Shared;
+using DirectoryService.Shared;
 
-namespace DirectoryService.Domain.Department.VO;
+namespace DirectoryService.Domain.Departments;
 
-public record DepartmentIdentifier
+public sealed record DepartmentIdentifier
 {
     public const int MAX_LENGTH = 150;
     public const int MIN_LENGTH = 3;

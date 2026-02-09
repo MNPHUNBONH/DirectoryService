@@ -1,10 +1,10 @@
 using CSharpFunctionalExtensions;
-using DirectoryService.Domain.Department.VO;
-using Shared;
+using DirectoryService.Domain.Departments;
+using DirectoryService.Shared;
 
 namespace DirectoryService.Domain;
 
-public class DepartmentPosition
+public sealed class DepartmentPosition
 {
     private DepartmentPosition(DepartmentId departmentId, PositionId positionId)
     {
